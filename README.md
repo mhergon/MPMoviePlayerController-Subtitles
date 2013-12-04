@@ -6,7 +6,10 @@ Easy way to show SRT files on MPMoviePlayerController
 ![MPMoviePlayerController-Subtitles](https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png "")
 ## Usage ##
 
-Add #import "MPMoviePlayerController+Subtitles.h" 
+Add 
+    #import "MPMoviePlayerController+Subtitles.h" 
+    
+Use it!
 
     // Video file
     NSString *filePathStr = [[NSBundle mainBundle] pathForResource:@"example" ofType:@"mp4"];
