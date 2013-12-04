@@ -3,7 +3,7 @@ MPMoviePlayerController-Subtitles
 
 Easy way to show SRT files on MPMoviePlayerController
 
-![MPMoviePlayerController-Subtitles](https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshoot.png "")
+![MPMoviePlayerController-Subtitles](https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png "")
 ## Usage ##
 
     // Video file
