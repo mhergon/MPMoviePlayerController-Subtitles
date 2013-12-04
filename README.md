@@ -7,12 +7,12 @@ Easy way to show SRT files on MPMoviePlayerController
 ## Usage ##
 
 Import 
-
+```objectivec
     #import "MPMoviePlayerController+Subtitles.h" 
-
+```
     
 Use it!
-
+```objectivec
     // Video file
     NSString *filePathStr = [[NSBundle mainBundle] pathForResource:@"example" ofType:@"mp4"];
     NSURL *fileURL = [NSURL fileURLWithPath:filePathStr];
@@ -36,8 +36,10 @@ Use it!
                                    NSLog(@"Error: %@", error.description);
                                    
                                }];
+```                               
 
 ## Architecture ##
+```objectivec
     // Open subtitle file and prepare to play with video 
     - (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
     
@@ -46,6 +48,7 @@ Use it!
     
     // Hide subtitles
     - (void)hideSubtitles;
+```
 
 ## Requirements ##
 Requires Xcode 5, targeting either iOS 6.0 and above
