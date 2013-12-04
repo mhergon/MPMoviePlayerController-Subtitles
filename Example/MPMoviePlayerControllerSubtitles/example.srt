@@ -1,0 +1,28 @@
+1
+00:00:00,220 --> 00:00:01,215
+First Text Example
+
+2
+00:00:03,148 --> 00:00:05,053
+Second Text Example
+with multiline support
+
+3
+00:00:08,004 --> 00:00:09,884
+Third Text Example
+
+4
+00:00:11,300 --> 00:00:12,900
+Fourth Text Example
+
+5
+00:00:15,500 --> 00:00:16,700
+Fifth Text Example
+
+6
+00:00:18,434 --> 00:00:20,434
+Sixth Text Example
+
+7
+00:00:22,600 --> 00:00:23,700
+Last Text Example

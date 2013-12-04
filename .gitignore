@@ -1,4 +1,7 @@
-# Xcode
+#################### OSX Finder
+.DS_Store
+
+#################### Xcode
 .DS_Store
 */build/*
 *.pbxuser
@@ -17,5 +20,7 @@ DerivedData
 *.hmap
 *.xccheckout
 
-#CocoaPods
+#################### Cocoapods
+Podfile.lock
 Pods
+contents.xcworkspacedata
