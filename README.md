@@ -3,7 +3,7 @@ MPMoviePlayerController-Subtitles
 
 Easy way to show SRT files on MPMoviePlayerController
 
-![image alt][3]
+![Screenshot][3]
 ## Usage ##
 
     // Video file
@@ -48,6 +48,6 @@ Requires Xcode 5, targeting either iOS 6.0 and above
  - [Marc Hervera][2] ([@mhergon][3])
 
 
-  [1]: https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshoot.png
+  [1]: https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png
   [2]: http://github.com/mhergon "Marc Hervera"
   [3]: http://github.com/mhergon "Marc Hervera"
