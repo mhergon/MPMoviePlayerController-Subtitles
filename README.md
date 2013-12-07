@@ -58,4 +58,4 @@ Requires Xcode 5, targeting either iOS 6.0 and above
  - [Marc Hervera][2] ([@mhergon][3])
 
   [2]: http://github.com/mhergon "Marc Hervera"
-  [3]: http://github.com/mhergon "Marc Hervera"
+  [3]: http://twitter.com/mhergon "Marc Hervera"
