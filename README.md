@@ -59,3 +59,7 @@ Requires Xcode 5, targeting either iOS 6.0 and above
 
   [2]: http://github.com/mhergon "Marc Hervera"
   [3]: http://twitter.com/mhergon "Marc Hervera"
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mhergon/mpmovieplayercontroller-subtitles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
