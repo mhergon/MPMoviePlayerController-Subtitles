@@ -54,7 +54,15 @@ static NSString *const kText = @"kText";
     }
     
     // Parse and show text
-    [self parseString:subtitleString
+    
+    [self openWithSRTString:subtitleString completion:success failure:failure];
+
+    
+}
+
+- (void)openWithSRTString:(NSString*)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure{
+    
+    [self parseString:srtString
                parsed:^(BOOL parsed, NSError *error) {
                    
                    if (!error && success != NULL) {
