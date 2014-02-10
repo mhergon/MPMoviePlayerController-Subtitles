@@ -12,6 +12,7 @@
 
 
 #pragma mark - Methods
+- (void)openWithSRTString:(NSString*)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
 - (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
 - (void)showSubtitles;
 - (void)hideSubtitles;
