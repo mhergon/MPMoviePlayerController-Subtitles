@@ -30,6 +30,7 @@ static NSString *const kText = @"kText";
 
 #pragma mark - Notifications
 - (void)playbackStateDidChange:(NSNotification *)notification;
+- (void)playbackDidFinish:(NSNotification *)notification;
 - (void)orientationWillChange:(NSNotification *)notification;
 - (void)orientationDidChange:(NSNotification *)notification;
 
@@ -82,6 +83,12 @@ static NSString *const kText = @"kText";
                                                                 selector:@selector(orientationDidChange:)
                                                                     name:UIDeviceOrientationDidChangeNotification
                                                                   object:nil];
+                       
+                       [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                selector:@selector(playbackDidFinish:)
+                                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                                  object:nil];
+
                        
                        success(YES);
                        
@@ -285,11 +292,17 @@ static NSString *const kText = @"kText";
         }
             
         default: {
-
+            
             break;
         }
             
     }
+    
+}
+
+- (void)playbackDidFinish:(NSNotification *)notification {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
