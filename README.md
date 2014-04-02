@@ -40,6 +40,8 @@ Use it!
 
 ## Architecture ##
 ```objective-c
+    // Process string and prepare to play with video 
+    - (void)openWithSRTString:(NSString*)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
     // Open subtitle file and prepare to play with video 
     - (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
     
