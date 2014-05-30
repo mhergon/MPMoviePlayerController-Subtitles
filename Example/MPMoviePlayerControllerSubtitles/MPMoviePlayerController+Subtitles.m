@@ -55,13 +55,12 @@ static NSString *const kText = @"kText";
     }
     
     // Parse and show text
-    
     [self openWithSRTString:subtitleString completion:success failure:failure];
 
     
 }
 
-- (void)openWithSRTString:(NSString*)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure{
+- (void)openWithSRTString:(NSString *)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure{
     
     [self parseString:srtString
                parsed:^(BOOL parsed, NSError *error) {
@@ -89,12 +88,15 @@ static NSString *const kText = @"kText";
                                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                                   object:nil];
 
-                       
-                       success(YES);
+                       if (success != NULL) {
+                           success(YES);
+                       }
                        
                    } else if (error && failure != NULL) {
                        
-                       failure(error);
+                       if (failure != NULL) {
+                           failure(error);
+                       }
                        
                    }
                    
@@ -162,7 +164,7 @@ static NSString *const kText = @"kText";
             return;
         }
         
-        textString = [regExp stringByReplacingMatchesInString:textString
+        textString = [regExp stringByReplacingMatchesInString:textString.length > 0 ? textString : @""
                                                       options:0
                                                         range:NSMakeRange(0, textString.length)
                                                  withTemplate:@""];
@@ -182,7 +184,9 @@ static NSString *const kText = @"kText";
         
     }
     
-    completion(YES, nil);
+    if (completion != NULL) {
+        completion(YES, nil);
+    }
     
 }
 
