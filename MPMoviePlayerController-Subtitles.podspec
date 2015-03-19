@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MPMoviePlayerController-Subtitles"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "Easy way to show SRT files on MPMoviePlayerController"
 
   s.description  = <<-DESC
@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '6.0'
   s.ios.deployment_target = '6.0'
   s.source       = { 
-                    :git => "https://github.com/mhergon/MPMoviePlayerController-Subtitles.git", :commit => "c2cbbc5b27678b047be3f6bd1e69e92202c87a5e",
-                    :tag => "1.0.3" 
+                    :git => "https://github.com/mhergon/MPMoviePlayerController-Subtitles.git", :commit => "126676daa4dac956a3f1a1ee10b598744d830c1e",
+                    :tag => "1.0.4" 
                     }
   s.source_files  = 'MPMoviePlayerController+Subtitles.h', 'MPMoviePlayerController+Subtitles.m'
   s.exclude_files = 'Example/*', 'Others/*'
