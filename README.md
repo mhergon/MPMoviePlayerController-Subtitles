@@ -54,7 +54,7 @@ Use it!
 ```
 
 ## Requirements ##
-Requires Xcode 5, targeting either iOS 6.0 and above
+Requires Xcode 6+, targeting either iOS 6.0+ and above
 
 ## Contact ##
 
