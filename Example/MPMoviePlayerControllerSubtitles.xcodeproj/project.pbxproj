@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4B20EEE2184F8829007EB5B2 /* example.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4B20EEE1184F8829007EB5B2 /* example.mp4 */; };
 		4B20EEE4184F88E6007EB5B2 /* MainViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B20EEE3184F88E6007EB5B2 /* MainViewController~iphone.xib */; };
+		4B4F411A1ABB0C0000954249 /* MPMoviePlayerController+Subtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F41191ABB0C0000954249 /* MPMoviePlayerController+Subtitles.m */; };
 		4B79B196184E90AA00701BFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B79B195184E90AA00701BFC /* Foundation.framework */; };
 		4B79B198184E90AA00701BFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B79B197184E90AA00701BFC /* CoreGraphics.framework */; };
 		4B79B19A184E90AA00701BFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B79B199184E90AA00701BFC /* UIKit.framework */; };
@@ -24,7 +25,6 @@
 		4B79B1C7184E90C700701BFC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B79B1C5184E90C700701BFC /* MainViewController.m */; };
 		4B79B1C8184E90C700701BFC /* MainViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B79B1C6184E90C700701BFC /* MainViewController~ipad.xib */; };
 		4B79B1CA184E911B00701BFC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B79B1C9184E911B00701BFC /* MediaPlayer.framework */; };
-		4B79B1CE184E917800701BFC /* MPMoviePlayerController+Subtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B79B1CD184E917800701BFC /* MPMoviePlayerController+Subtitles.m */; };
 		4B79B1D0184E939B00701BFC /* example.srt in Resources */ = {isa = PBXBuildFile; fileRef = 4B79B1CF184E939B00701BFC /* example.srt */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,8 @@
 /* Begin PBXFileReference section */
 		4B20EEE1184F8829007EB5B2 /* example.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = example.mp4; sourceTree = "<group>"; };
 		4B20EEE3184F88E6007EB5B2 /* MainViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController~iphone.xib"; sourceTree = "<group>"; };
+		4B4F41181ABB0C0000954249 /* MPMoviePlayerController+Subtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPMoviePlayerController+Subtitles.h"; path = "../../MPMoviePlayerController+Subtitles.h"; sourceTree = "<group>"; };
+		4B4F41191ABB0C0000954249 /* MPMoviePlayerController+Subtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+Subtitles.m"; path = "../../MPMoviePlayerController+Subtitles.m"; sourceTree = "<group>"; };
 		4B79B192184E90AA00701BFC /* MPMoviePlayerControllerSubtitles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPMoviePlayerControllerSubtitles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B79B195184E90AA00701BFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4B79B197184E90AA00701BFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,8 +63,6 @@
 		4B79B1C5184E90C700701BFC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4B79B1C6184E90C700701BFC /* MainViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController~ipad.xib"; sourceTree = "<group>"; };
 		4B79B1C9184E911B00701BFC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		4B79B1CC184E917800701BFC /* MPMoviePlayerController+Subtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerController+Subtitles.h"; sourceTree = "<group>"; };
-		4B79B1CD184E917800701BFC /* MPMoviePlayerController+Subtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerController+Subtitles.m"; sourceTree = "<group>"; };
 		4B79B1CF184E939B00701BFC /* example.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.srt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,8 +171,8 @@
 		4B79B1CB184E915100701BFC /* MPMoviePlayerController+Subtitles */ = {
 			isa = PBXGroup;
 			children = (
-				4B79B1CC184E917800701BFC /* MPMoviePlayerController+Subtitles.h */,
-				4B79B1CD184E917800701BFC /* MPMoviePlayerController+Subtitles.m */,
+				4B4F41181ABB0C0000954249 /* MPMoviePlayerController+Subtitles.h */,
+				4B4F41191ABB0C0000954249 /* MPMoviePlayerController+Subtitles.m */,
 			);
 			name = "MPMoviePlayerController+Subtitles";
 			sourceTree = "<group>";
@@ -287,7 +287,7 @@
 			files = (
 				4B79B1A6184E90AA00701BFC /* AppDelegate.m in Sources */,
 				4B79B1C7184E90C700701BFC /* MainViewController.m in Sources */,
-				4B79B1CE184E917800701BFC /* MPMoviePlayerController+Subtitles.m in Sources */,
+				4B4F411A1ABB0C0000954249 /* MPMoviePlayerController+Subtitles.m in Sources */,
 				4B79B1A2184E90AA00701BFC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

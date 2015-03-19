@@ -21,18 +21,23 @@ static NSString *const kText = @"kText";
 @property (strong, nonatomic) NSMutableDictionary *subtitlesParts;
 @property (strong, nonatomic) NSTimer *subtitleTimer;
 @property (strong, nonatomic) UILabel *subtitleLabel;
+@property (strong, nonatomic) NSLayoutConstraint *heightConstraint;
 
 #pragma mark - Private methods
 - (void)showSubtitles:(BOOL)show;
 - (void)parseString:(NSString *)string parsed:(void (^)(BOOL parsed, NSError *error))completion;
 - (NSTimeInterval)timeFromString:(NSString *)yimeString;
 - (void)searchAndShowSubtitle;
+- (void)updateLabelHeight;
 
 #pragma mark - Notifications
 - (void)playbackStateDidChange:(NSNotification *)notification;
 - (void)playbackDidFinish:(NSNotification *)notification;
 - (void)orientationWillChange:(NSNotification *)notification;
 - (void)orientationDidChange:(NSNotification *)notification;
+- (void)willEnterFullscreen:(NSNotification *)notification;
+- (void)didEnterFullscreen:(NSNotification *)notification;
+- (void)willExitFullscreen:(NSNotification *)notification;
 
 
 @end
@@ -87,6 +92,22 @@ static NSString *const kText = @"kText";
                                                                 selector:@selector(playbackDidFinish:)
                                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                                   object:nil];
+                       
+                       [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                selector:@selector(willEnterFullscreen:)
+                                                                    name:MPMoviePlayerWillEnterFullscreenNotification
+                                                                  object:nil];
+                       
+                       [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                selector:@selector(didEnterFullscreen:)
+                                                                    name:MPMoviePlayerDidEnterFullscreenNotification
+                                                                  object:nil];
+                       
+                       [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                selector:@selector(willExitFullscreen:)
+                                                                    name:MPMoviePlayerWillExitFullscreenNotification
+                                                                  object:nil];
+
 
                        if (success != NULL) {
                            success(YES);
@@ -220,22 +241,44 @@ static NSString *const kText = @"kText";
         // Get text
         self.subtitleLabel.text = [lastFounded objectForKey:kText];
 
-
-        // Label position
-        CGSize size = [self.subtitleLabel.text sizeWithFont:self.subtitleLabel.font
-                                          constrainedToSize:CGSizeMake(CGRectGetWidth(self.subtitleLabel.bounds), CGFLOAT_MAX)];
-        self.subtitleLabel.frame = ({
-            CGRect frame = self.subtitleLabel.frame;
-            frame.size.height = size.height;
-            frame;
-        });
-        self.subtitleLabel.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2.0, CGRectGetHeight(self.view.bounds) - (CGRectGetHeight(self.subtitleLabel.bounds) / 2.0) - 15.0);
+        // Update label constraints
+        [self updateLabelConstraints];
 
     } else {
         
         self.subtitleLabel.text = @"";
         
     }
+    
+}
+
+- (void)updateLabelConstraints {
+    
+    // Default
+    NSString *horizontal = @"H:|-(15)-[weakSubtitleLabel]-(15)-|";
+    NSString *vertical = @"V:[weakSubtitleLabel]-(15)-|";
+    
+    UIView __weak *weakSubtitleLabel = self.subtitleLabel;
+    NSDictionary *views = NSDictionaryOfVariableBindings(weakSubtitleLabel);
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:horizontal
+                                                                   options:0
+                                                                   metrics:nil
+                                                                     views:views];
+    [self.subtitleLabel.superview addConstraints:constraints];
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:vertical
+                                                          options:0
+                                                          metrics:nil
+                                                            views:views];
+    [self.subtitleLabel.superview addConstraints:constraints];
+    
+    
+    CGRect bounds = [self.subtitleLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.subtitleLabel.bounds), CGFLOAT_MAX)
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:@{NSFontAttributeName : self.subtitleLabel.font}
+                                                          context:nil];
+    self.heightConstraint.constant = bounds.size.height + 10.0;
+
+    [self.subtitleLabel.superview layoutIfNeeded];
     
 }
 
@@ -275,8 +318,8 @@ static NSString *const kText = @"kText";
                 } else {
                     fontSize = 20.0;
                 }
-                self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds) - 30.0, 100.0)];
-                self.subtitleLabel.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2.0, CGRectGetHeight(self.view.bounds) - (CGRectGetHeight(self.subtitleLabel.bounds) / 2.0) - 15.0);
+                self.subtitleLabel = [[UILabel alloc] init];
+                self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
                 self.subtitleLabel.backgroundColor = [UIColor clearColor];
                 self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
                 self.subtitleLabel.textColor = [UIColor whiteColor];
@@ -289,6 +332,9 @@ static NSString *const kText = @"kText";
                 self.subtitleLabel.layer.shouldRasterize = YES;
                 self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
                 [self.view addSubview:self.subtitleLabel];
+                
+                // Update label constraints
+                [self updateLabelConstraints];
                 
             }
             
@@ -319,18 +365,44 @@ static NSString *const kText = @"kText";
 
 - (void)orientationDidChange:(NSNotification *)notification {
     
-    // Label position
-    CGSize size = [self.subtitleLabel.text sizeWithFont:self.subtitleLabel.font
-                                      constrainedToSize:CGSizeMake(CGRectGetWidth(self.subtitleLabel.bounds), CGFLOAT_MAX)];
-    self.subtitleLabel.frame = ({
-        CGRect frame = self.subtitleLabel.frame;
-        frame.size.height = size.height;
-        frame;
-    });
-    self.subtitleLabel.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2.0, CGRectGetHeight(self.view.bounds) - (CGRectGetHeight(self.subtitleLabel.bounds) / 2.0) - 15.0);
+    // Show label
+    self.subtitleLabel.hidden = NO;
+
+    // Update label constraints
+    [self updateLabelConstraints];
+ 
+}
+
+- (void)willEnterFullscreen:(NSNotification *)notification {
     
     // Hidden label
+    self.subtitleLabel.hidden = YES;
+
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if (!window) {
+        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    }
+    
+    [window addSubview:self.subtitleLabel];
+    
+    // Update label constraints
+    [self updateLabelConstraints];
+
+}
+
+- (void)didEnterFullscreen:(NSNotification *)notification {
+
+    // Show label
     self.subtitleLabel.hidden = NO;
+    
+}
+
+- (void)willExitFullscreen:(NSNotification *)notification {
+    
+    [self.view addSubview:self.subtitleLabel];
+    
+    // Update label constraints
+    [self updateLabelConstraints];
     
 }
 
@@ -377,5 +449,16 @@ static NSString *const kText = @"kText";
     
 }
 
+- (void)setHeightConstraint:(NSLayoutConstraint *)heightConstraint {
+    
+    objc_setAssociatedObject(self, @"heightConstraint", heightConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+}
+
+- (NSLayoutConstraint *)heightConstraint {
+    
+    return objc_getAssociatedObject(self, @"heightConstraint");
+    
+}
 
 @end
