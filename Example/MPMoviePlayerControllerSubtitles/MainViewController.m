@@ -14,6 +14,8 @@
 
 - (IBAction)showVideoAction:(UIButton *)sender;
 
+@property MPMoviePlayerController *player;
+
 @end
 
 @implementation MainViewController
@@ -66,7 +68,5 @@
                                }];
     
 }
-
-
 
 @end
