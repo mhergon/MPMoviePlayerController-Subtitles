@@ -11,10 +11,10 @@
 @interface MPMoviePlayerController (Subtitles)
 
 #pragma mark - Methods
-- (void)openWithSRTString:(NSString *)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
-- (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
-- (void)showSubtitles;
-- (void)hideSubtitles;
+- (void)openSRTFileAtPath:(NSDictionary *)localFilesDictionary completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
+- (void)openWithSRTString:(NSDictionary *)srtStringsDictionary completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
+- (BOOL)showSubtitlesWithOption:(enum LanguageOption)option;
+- (BOOL)hideSubtitles;
 
 @end
 
