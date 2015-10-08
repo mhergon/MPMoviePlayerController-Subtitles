@@ -25,7 +25,8 @@
 		4B79B1C7184E90C700701BFC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B79B1C5184E90C700701BFC /* MainViewController.m */; };
 		4B79B1C8184E90C700701BFC /* MainViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B79B1C6184E90C700701BFC /* MainViewController~ipad.xib */; };
 		4B79B1CA184E911B00701BFC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B79B1C9184E911B00701BFC /* MediaPlayer.framework */; };
-		4B79B1D0184E939B00701BFC /* example.srt in Resources */ = {isa = PBXBuildFile; fileRef = 4B79B1CF184E939B00701BFC /* example.srt */; };
+		C6F404761BC6762D00DA283C /* example-en.srt in Resources */ = {isa = PBXBuildFile; fileRef = C6F404741BC6762D00DA283C /* example-en.srt */; settings = {ASSET_TAGS = (); }; };
+		C6F404791BC677C700DA283C /* example-es.srt in Resources */ = {isa = PBXBuildFile; fileRef = C6F404781BC677C700DA283C /* example-es.srt */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +64,9 @@
 		4B79B1C5184E90C700701BFC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4B79B1C6184E90C700701BFC /* MainViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController~ipad.xib"; sourceTree = "<group>"; };
 		4B79B1C9184E911B00701BFC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		4B79B1CF184E939B00701BFC /* example.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.srt; sourceTree = "<group>"; };
+		C6F404731BC6741B00DA283C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C6F404741BC6762D00DA283C /* example-en.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "example-en.srt"; sourceTree = "<group>"; };
+		C6F404781BC677C700DA283C /* example-es.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "example-es.srt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,7 @@
 				4B79B1D1184E95E800701BFC /* Example files */,
 				4B79B1CB184E915100701BFC /* MPMoviePlayerController+Subtitles */,
 				4B79B19C184E90AA00701BFC /* Supporting Files */,
+				C6F404731BC6741B00DA283C /* Constants.h */,
 			);
 			path = MPMoviePlayerControllerSubtitles;
 			sourceTree = "<group>";
@@ -181,7 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				4B20EEE1184F8829007EB5B2 /* example.mp4 */,
-				4B79B1CF184E939B00701BFC /* example.srt */,
+				C6F404741BC6762D00DA283C /* example-en.srt */,
+				C6F404781BC677C700DA283C /* example-es.srt */,
 			);
 			name = "Example files";
 			sourceTree = "<group>";
@@ -262,10 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B79B1A0184E90AA00701BFC /* InfoPlist.strings in Resources */,
+				C6F404761BC6762D00DA283C /* example-en.srt in Resources */,
 				4B79B1C8184E90C700701BFC /* MainViewController~ipad.xib in Resources */,
-				4B79B1D0184E939B00701BFC /* example.srt in Resources */,
 				4B20EEE2184F8829007EB5B2 /* example.mp4 in Resources */,
 				4B79B1A8184E90AA00701BFC /* Images.xcassets in Resources */,
+				C6F404791BC677C700DA283C /* example-es.srt in Resources */,
 				4B20EEE4184F88E6007EB5B2 /* MainViewController~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

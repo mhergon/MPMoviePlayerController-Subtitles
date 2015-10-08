@@ -48,15 +48,20 @@
     NSURL *fileURL = [NSURL fileURLWithPath:filePathStr];
     
     // Subtitles file
-    NSString *subtitlesPathStr = [[NSBundle mainBundle] pathForResource:@"example" ofType:@"srt"];
+    NSString *subtitlesPathStr_en = [[NSBundle mainBundle] pathForResource:@"example-en" ofType:@"srt"];
+    NSString *subtitlesPathStr_es = [[NSBundle mainBundle] pathForResource:@"example-es" ofType:@"srt"];
+    
+    NSMutableDictionary *localFilesDictionary = [NSMutableDictionary dictionary];
+    [localFilesDictionary setObject:subtitlesPathStr_en forKey:@"en"];
+    [localFilesDictionary setObject:subtitlesPathStr_es forKey:@"es"];
     
     // Create MoviePlayer
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURL];
-    [player.moviePlayer openSRTFileAtPath:subtitlesPathStr
+    [player.moviePlayer openSRTFileAtPath:localFilesDictionary
                                completion:^(BOOL finished) {
                                    
                                    // Activate subtitles
-                                   [player.moviePlayer showSubtitles];
+                                   [player.moviePlayer showSubtitlesWithOption:SPANISH];
                                    
                                    // Show video
                                    [self presentMoviePlayerViewControllerAnimated:player];

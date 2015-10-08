@@ -19,14 +19,15 @@ static NSString *const kText = @"kText";
 
 #pragma mark - Properties
 @property (strong, nonatomic) NSMutableDictionary *subtitlesParts;
+@property (strong, nonatomic) NSMutableDictionary *currentLanguageSubtitleParts;
 @property (strong, nonatomic) NSTimer *subtitleTimer;
 @property (strong, nonatomic) UILabel *subtitleLabel;
-@property (strong, nonatomic) NSLayoutConstraint *heightConstraint;
+@property (nonatomic) enum LanguageOption languageOption;
 
 #pragma mark - Private methods
-- (void)showSubtitles:(BOOL)show;
+- (BOOL)needToShowSubtitles:(BOOL)show;
 - (void)parseString:(NSString *)string parsed:(void (^)(BOOL parsed, NSError *error))completion;
-- (NSTimeInterval)timeFromString:(NSString *)yimeString;
+- (NSTimeInterval)timeFromString:(NSString *)timeString;
 - (void)searchAndShowSubtitle;
 - (void)updateLabelHeight;
 
@@ -45,29 +46,38 @@ static NSString *const kText = @"kText";
 @implementation MPMoviePlayerController (Subtitles)
 
 #pragma mark - Methods
-- (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure {
+- (void)openSRTFileAtPath:(NSDictionary *)localFilesDictionary completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *srtFilesInStringForm = [NSMutableDictionary dictionary];
     
     // Error
     NSError *error = nil;
     
-    // File to string
-    NSString *subtitleString = [NSString stringWithContentsOfFile:localFile
-                                                         encoding:NSUTF8StringEncoding
-                                                            error:&error];
-    if (error && failure != NULL) {
-        failure(error);
-        return;
+    for (NSString *key in [localFilesDictionary allKeys])
+    {
+        // File to string
+        NSString *subtitleString = [NSString stringWithContentsOfFile:[localFilesDictionary objectForKey:key]
+                                                             encoding:NSUTF8StringEncoding
+                                                                error:&error];
+        
+        //SRT Files hidden characters are coming in two flavours. So here we are syncing them.
+        //So that our SRT parser behaves correctly.
+        subtitleString = [subtitleString stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\r\n\r\n"];
+        if (error && failure != NULL)
+        {
+            failure(error);
+            return;
+        }
+        [srtFilesInStringForm setObject:subtitleString forKey:key];
     }
     
     // Parse and show text
-    [self openWithSRTString:subtitleString completion:success failure:failure];
-
-    
+    [self openWithSRTString:srtFilesInStringForm completion:success failure:failure];
 }
 
-- (void)openWithSRTString:(NSString *)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure{
+- (void)openWithSRTString:(NSDictionary *)srtStringsDictionary completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure{
     
-    [self parseString:srtString
+    [self parseString:srtStringsDictionary
                parsed:^(BOOL parsed, NSError *error) {
                    
                    if (!error && success != NULL) {
@@ -125,90 +135,112 @@ static NSString *const kText = @"kText";
     
 }
 
-- (void)showSubtitles:(BOOL)show {
-    
-    // Hide label
-    self.subtitleLabel.hidden = !show;
-    
+- (BOOL)needToShowSubtitles:(BOOL)show
+{
+    BOOL success = NO;
+    if (self.subtitleLabel)
+    {
+        // Hide label
+        self.subtitleLabel.hidden = !show;
+        success = YES;
+    }
+    return success;
 }
 
-- (void)showSubtitles {
-    
-    [self showSubtitles:YES];
-    
+- (BOOL)showSubtitlesWithOption:(enum LanguageOption)option
+{
+    switch (option)
+    {
+        case ENGLISH:
+        {
+            self.currentLanguageSubtitleParts = [self.subtitlesParts objectForKey:@"en"];
+            break;
+        }
+        case SPANISH:
+        {
+            self.currentLanguageSubtitleParts = [self.subtitlesParts objectForKey:@"es"];
+            break;
+        }
+        default:
+            break;
+    }
+    return [self needToShowSubtitles:YES];
 }
 
-- (void)hideSubtitles {
-    
-    [self showSubtitles:NO];
-    
+- (BOOL)hideSubtitles
+{
+    return [self needToShowSubtitles:NO];
 }
 
 #pragma mark - Private methods
-- (void)parseString:(NSString *)string parsed:(void (^)(BOOL parsed, NSError *error))completion {
+- (void)parseString:(NSDictionary *)srtStringsDictionary parsed:(void (^)(BOOL parsed, NSError *error))completion {
     
-    // Create Scanner
-    NSScanner *scanner = [NSScanner scannerWithString:string];
-    
-    // Subtitles parts
     self.subtitlesParts = [NSMutableDictionary dictionary];
-    
-    // Search for members
-    while (!scanner.isAtEnd) {
+    for (NSString *key in [srtStringsDictionary allKeys])
+    {
+        NSString *scannableString = [srtStringsDictionary objectForKey:key];
         
-        // Variables
-        NSString *indexString;
-        [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet]
-                                intoString:&indexString];
+        // Subtitles parts
+        NSMutableDictionary *subtitleParts = [NSMutableDictionary dictionary];
         
-        NSString *startString;
-        [scanner scanUpToString:@" --> " intoString:&startString];
-        [scanner scanString:@"-->" intoString:NULL];
-        
-        NSString *endString;
-        [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet]
-                                intoString:&endString];
-        
-        
-        
-        NSString *textString;
-        [scanner scanUpToString:@"\r\n\r\n" intoString:&textString];
-        textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        // Regular expression to replace tags
-        NSError *error = nil;
-        NSRegularExpression *regExp = [NSRegularExpression regularExpressionWithPattern:@"[<|\\{][^>|\\^}]*[>|\\}]"
-                                                                                options:NSRegularExpressionCaseInsensitive
-                                                                                  error:&error];
-        if (error) {
-            completion(NO, error);
-            return;
+        // Create Scanner
+        NSScanner *scanner = [NSScanner scannerWithString:scannableString];
+        if (scanner != nil)
+        {
+            // Search for members
+            while (!scanner.isAtEnd)
+            {
+                // Variables
+                NSString *indexString;
+                [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet]
+                                        intoString:&indexString];
+                NSString *startString;
+                [scanner scanUpToString:@" --> " intoString:&startString];
+                [scanner scanString:@"-->" intoString:NULL];
+                
+                NSString *endString;
+                [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet]
+                                        intoString:&endString];
+                
+                NSString *textString;
+                [scanner scanUpToString:@"\r\n\r\n" intoString:&textString];
+                textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                // Regular expression to replace tags
+                NSError *error = nil;
+                NSRegularExpression *regExp = [NSRegularExpression regularExpressionWithPattern:@"[<|\\{][^>|\\^}]*[>|\\}]"
+                                                                                        options:NSRegularExpressionCaseInsensitive
+                                                                                          error:&error];
+                if (error)
+                {
+                    completion(NO, error);
+                    return;
+                }
+                
+                textString = [regExp stringByReplacingMatchesInString:textString.length > 0 ? textString : @""
+                                                              options:0
+                                                                range:NSMakeRange(0, textString.length)
+                                                         withTemplate:@""];
+                
+                // Temp object
+                NSTimeInterval startInterval = [self timeFromString:startString];
+                NSTimeInterval endInterval = [self timeFromString:endString];
+                NSDictionary *tempInterval = @{
+                                               kIndex : indexString,
+                                               kStart : @(startInterval),
+                                               kEnd : @(endInterval),
+                                               kText : textString ? textString : @""
+                                               };
+                [subtitleParts setObject:tempInterval
+                                  forKey:indexString];
+            }
         }
-        
-        textString = [regExp stringByReplacingMatchesInString:textString.length > 0 ? textString : @""
-                                                      options:0
-                                                        range:NSMakeRange(0, textString.length)
-                                                 withTemplate:@""];
-        
-        
-        // Temp object
-        NSTimeInterval startInterval = [self timeFromString:startString];
-        NSTimeInterval endInterval = [self timeFromString:endString];
-        NSDictionary *tempInterval = @{
-                                       kIndex : indexString,
-                                       kStart : @(startInterval),
-                                       kEnd : @(endInterval),
-                                       kText : textString ? textString : @""
-                                       };
-        [self.subtitlesParts setObject:tempInterval
-                                forKey:indexString];
-        
+        [self.subtitlesParts setObject:subtitleParts forKey:key];
     }
-    
-    if (completion != NULL) {
+    if (completion != NULL)
+    {
         completion(YES, nil);
     }
-    
 }
 
 - (NSTimeInterval)timeFromString:(NSString *)timeString {
@@ -230,24 +262,32 @@ static NSString *const kText = @"kText";
 
 - (void)searchAndShowSubtitle {
     
+    NSDictionary *subtitleParts = self.currentLanguageSubtitleParts;
+    
     // Search for timeInterval
     NSPredicate *initialPredicate = [NSPredicate predicateWithFormat:@"(%@ >= %K) AND (%@ <= %K)", @(self.currentPlaybackTime), kStart, @(self.currentPlaybackTime), kEnd];
-    NSArray *objectsFound = [[self.subtitlesParts allValues] filteredArrayUsingPredicate:initialPredicate];
+    NSArray *objectsFound = [[subtitleParts allValues] filteredArrayUsingPredicate:initialPredicate];
     NSDictionary *lastFounded = (NSDictionary *)[objectsFound lastObject];
     
     // Show text
-    if (lastFounded) {
-        
+    if (lastFounded)
+    {
         // Get text
         self.subtitleLabel.text = [lastFounded objectForKey:kText];
-
-        // Update label constraints
-        [self updateLabelConstraints];
-
-    } else {
         
+        // Label position
+        CGSize size = [self.subtitleLabel.text sizeWithFont:self.subtitleLabel.font
+                                          constrainedToSize:CGSizeMake(CGRectGetWidth(self.subtitleLabel.bounds), CGFLOAT_MAX)];
+        self.subtitleLabel.frame = ({
+            CGRect frame = self.subtitleLabel.frame;
+            frame.size.height = size.height;
+            frame;
+        });
+        self.subtitleLabel.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2.0, CGRectGetHeight(self.view.bounds) - (CGRectGetHeight(self.subtitleLabel.bounds) / 2.0) - 145.0);
+    }
+    else
+    {
         self.subtitleLabel.text = @"";
-        
     }
     
 }
@@ -353,6 +393,9 @@ static NSString *const kText = @"kText";
 - (void)playbackDidFinish:(NSNotification *)notification {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.subtitleTimer invalidate];
+    self.subtitleTimer = nil;
+    [self removeAssociatedObjects];
     
 }
 
@@ -449,6 +492,16 @@ static NSString *const kText = @"kText";
     
 }
 
+- (void)setCurrentLanguageSubtitleParts:(NSMutableDictionary *)currentLanguageSubtitleParts
+{
+    objc_setAssociatedObject(self, @"currentLanguageSubtitleParts", currentLanguageSubtitleParts, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableDictionary *)currentLanguageSubtitleParts
+{
+    return objc_getAssociatedObject(self, @"currentLanguageSubtitleParts");
+}
+
 - (void)setHeightConstraint:(NSLayoutConstraint *)heightConstraint {
     
     objc_setAssociatedObject(self, @"heightConstraint", heightConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -459,6 +512,11 @@ static NSString *const kText = @"kText";
     
     return objc_getAssociatedObject(self, @"heightConstraint");
     
+}
+
+- (void)removeAssociatedObjects
+{
+    objc_removeAssociatedObjects(self);
 }
 
 @end
