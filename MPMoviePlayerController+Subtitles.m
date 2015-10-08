@@ -54,6 +54,7 @@ static NSString *const kText = @"kText";
     NSString *subtitleString = [NSString stringWithContentsOfFile:localFile
                                                          encoding:NSUTF8StringEncoding
                                                             error:&error];
+    subtitleString = [subtitleString stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\r\n\r\n"];
     if (error && failure != NULL) {
         failure(error);
         return;
