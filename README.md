@@ -1,12 +1,8 @@
 <p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/v2.0/Others/logo.png" alt="AFNetworking" title="AFNetworking" width=250>
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/v2.0/Others/logo.png" alt="AFNetworking" title="Logo" width=250>
 </p>
 
 MPMoviePlayerController-Subtitles is a library to display subtitles on iOS. It's built as a Swift extension and it's very easy to integrate.
-
-<p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/v2.0/Others/screenshot.png" alt="AFNetworking" title="AFNetworking" width=250>
-</p>
 
 ## How To Get Started
 
@@ -53,6 +49,11 @@ moviePlayer.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
 // Play
 moviePlayer.moviePlayer.play()
 ```
+
+## Screenshot
+<p align="center" >
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/v2.0/Others/screenshot.png" alt="Example" title="AFNetworking">
+</p>
 
 ## Contact
 
