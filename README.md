@@ -40,7 +40,6 @@ let moviePlayer = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath:
 presentMoviePlayerViewControllerAnimated(moviePlayer)
 
 // Add subtitles
-moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL)
 moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
 
 // Change text properties
