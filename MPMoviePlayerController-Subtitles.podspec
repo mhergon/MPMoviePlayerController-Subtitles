@@ -9,4 +9,5 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/mhergon/MPMoviePlayerController-Subtitles.git', :tag => 'v2.0' }
   spec.source_files     = 'MPMoviePlayerController-Subtitles.swift'
   spec.requires_arc     = true
+  spec.module_name       = 'MPMoviePlayerControllerSubtitles'
 end
