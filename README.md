@@ -27,6 +27,11 @@ pod "MPMoviePlayerController-Subtitles"
 
 ## Usage
 
+
+```swift
+import MPMoviePlayerControllerSubtitles
+```
+
 ```swift
 // Video file
 let videoFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType: "mov")
