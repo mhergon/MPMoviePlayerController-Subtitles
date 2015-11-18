@@ -13,8 +13,8 @@
 		4B4966481BF8F87E00CD6060 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B4966461BF8F87E00CD6060 /* Main.storyboard */; };
 		4B49664A1BF8F87E00CD6060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B4966491BF8F87E00CD6060 /* Assets.xcassets */; };
 		4B49664D1BF8F87E00CD6060 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B49664B1BF8F87E00CD6060 /* LaunchScreen.storyboard */; };
+		4B607D561BFCE0C2001090B5 /* MPMoviePlayerController-Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B607D551BFCE0C2001090B5 /* MPMoviePlayerController-Subtitles.swift */; };
 		4B711ABB1BF900530017C8DA /* trailer_720p.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4B711ABA1BF900530017C8DA /* trailer_720p.mov */; };
-		4B711ABE1BF900D20017C8DA /* MPMoviePlayerController-Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B711ABD1BF900D20017C8DA /* MPMoviePlayerController-Subtitles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,8 @@
 		4B4966491BF8F87E00CD6060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B49664C1BF8F87E00CD6060 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B49664E1BF8F87E00CD6060 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B607D551BFCE0C2001090B5 /* MPMoviePlayerController-Subtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MPMoviePlayerController-Subtitles.swift"; path = "../../MPMoviePlayerController-Subtitles.swift"; sourceTree = "<group>"; };
 		4B711ABA1BF900530017C8DA /* trailer_720p.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = trailer_720p.mov; sourceTree = "<group>"; };
-		4B711ABD1BF900D20017C8DA /* MPMoviePlayerController-Subtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMoviePlayerController-Subtitles.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 		4B711ABC1BF900A90017C8DA /* MPMoviePlayerController-Subtitles */ = {
 			isa = PBXGroup;
 			children = (
-				4B711ABD1BF900D20017C8DA /* MPMoviePlayerController-Subtitles.swift */,
+				4B607D551BFCE0C2001090B5 /* MPMoviePlayerController-Subtitles.swift */,
 			);
 			name = "MPMoviePlayerController-Subtitles";
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B711ABE1BF900D20017C8DA /* MPMoviePlayerController-Subtitles.swift in Sources */,
+				4B607D561BFCE0C2001090B5 /* MPMoviePlayerController-Subtitles.swift in Sources */,
 				4B4966451BF8F87E00CD6060 /* ViewController.swift in Sources */,
 				4B4966431BF8F87E00CD6060 /* AppDelegate.swift in Sources */,
 			);

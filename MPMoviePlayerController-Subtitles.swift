@@ -19,7 +19,7 @@ private struct AssociatedKeys {
     static var TimerKey = "TimerKey"
 }
 
-extension MPMoviePlayerController {
+public extension MPMoviePlayerController {
     
     //MARK:- Public properties
     var subtitleLabel: UILabel? {
@@ -284,7 +284,7 @@ extension MPMoviePlayerController {
 }
 
 // Others
-extension NSTimer {
+public extension NSTimer {
     
     class func schedule(repeatInterval interval: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer {
         let fireDate = interval + CFAbsoluteTimeGetCurrent()
