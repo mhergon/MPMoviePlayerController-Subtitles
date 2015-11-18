@@ -1,68 +1,63 @@
-MPMoviePlayerController-Subtitles
-=================================
+<p align="center" >
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png" alt="AFNetworking" title="AFNetworking">
+</p>
 
-Easy way to show SRT files on MPMoviePlayerController
+MPMoviePlayerController-Subtitles is a library to display subtitles on iOS. It's built as a Swift extension and it's very easy to integrate.
 
-![MPMoviePlayerController-Subtitles](https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png "")
-## Usage ##
+## How To Get Started
 
-Import 
-```objective-c
-    #import "MPMoviePlayerController+Subtitles.h" 
-```
-    
-Use it!
-```objective-c
-    // Video file
-    NSString *filePathStr = [[NSBundle mainBundle] pathForResource:@"example" ofType:@"mp4"];
-    NSURL *fileURL = [NSURL fileURLWithPath:filePathStr];
-    
-    // Subtitles file
-    NSString *subtitlesPathStr = [[NSBundle mainBundle] pathForResource:@"example" ofType:@"srt"];
-    
-    // Create MoviePlayer
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURL];
-    [player.moviePlayer openSRTFileAtPath:subtitlesPathStr
-                               completion:^(BOOL finished) {
-                                   
-                                   // Activate subtitles
-                                   [player.moviePlayer showSubtitles];
-                                   
-                                   // Show video
-                                   [self presentMoviePlayerViewControllerAnimated:player];
-                                   
-                               } failure:^(NSError *error) {
-                                   
-                                   NSLog(@"Error: %@", error.description);
-                                   
-                               }];
-```                               
+### Manually installation
 
-## Architecture ##
-```objective-c
-    // Process string and prepare to play with video 
-    - (void)openWithSRTString:(NSString*)srtString completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
-    
-    // Open subtitle file and prepare to play with video 
-    - (void)openSRTFileAtPath:(NSString *)localFile completion:(void (^)(BOOL finished))success failure:(void (^)(NSError *error))failure;
-    
-    // Show subtitles
-    - (void)showSubtitles;
-    
-    // Hide subtitles
-    - (void)hideSubtitles;
+[Download](https://cocoapods.org/) extension and copy to your project.
+
+### Installation with CocoaPods
+
+```ruby
+platform :ios, '8.0'
+pod "MPMoviePlayerController-Subtitles", "~> 2.0"
 ```
 
-## Requirements ##
-Requires Xcode 6+, targeting either iOS 6.0+ and above
+## Requirements
 
-## Contact ##
-
- - [Marc Hervera][2] ([@mhergon][3])
-
-  [2]: http://github.com/mhergon "Marc Hervera"
-  [3]: http://twitter.com/mhergon "Marc Hervera"
+| Version | Minimum iOS Target  |
+|:--------------------:|:---------------------------:|
+|          2.x         |            iOS 8            |
+|          1.x         |            iOS 6            |
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mhergon/mpmovieplayercontroller-subtitles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+## Usage 
 
+```swift
+// Video file
+let videoFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType: "mov")
+
+// Subtitle file
+let subtitleFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType: "srt")
+let subtitleURL = NSURL(fileURLWithPath: subtitleFile!)
+
+// Movie player
+let moviePlayer = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
+presentMoviePlayerViewControllerAnimated(moviePlayer)
+
+// Add subtitles
+moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL)
+moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
+
+// Change text properties
+moviePlayer.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
+
+// Play
+moviePlayer.moviePlayer.play()
+```
+
+## Contact
+
+- [Linkedin][2]
+- [Twitter][3] (@mhergon)
+
+[2]: https://es.linkedin.com/in/marchervera 
+[3]: http://twitter.com/mhergon "Marc Hervera"
+
+## License
+
+AFNetworking is released under the MIT license. See LICENSE for details.
