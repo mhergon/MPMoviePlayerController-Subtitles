@@ -14,7 +14,7 @@ MPMoviePlayerController-Subtitles is a library to display subtitles on iOS. It's
 
 ```ruby
 platform :ios, '8.0'
-pod "MPMoviePlayerController-Subtitles", "~> 2.0"
+pod "MPMoviePlayerController-Subtitles"
 ```
 
 ## Requirements
