@@ -12,7 +12,7 @@ MPMoviePlayerController-Subtitles is a library to display subtitles on iOS. It's
 
 ### Manually installation
 
-[Download](https://github.com/mhergon/MPMoviePlayerController-Subtitles/raw/v2.0/MPMoviePlayerController-Subtitles.swift) extension and copy to your project.
+[Download](https://github.com/mhergon/MPMoviePlayerController-Subtitles/raw/v2.0/MPMoviePlayerController-Subtitles.swift) (right-click) and add to your project.
 
 ### Installation with CocoaPods
 
