@@ -69,4 +69,4 @@ moviePlayer.moviePlayer.play()
 
 ## License
 
-AFNetworking is released under the MIT license. See LICENSE for details.
+MPMoviePlayerController-Subtitles is released under the MIT license. See LICENSE for details.
