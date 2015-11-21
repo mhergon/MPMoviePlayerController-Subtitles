@@ -17,7 +17,7 @@ platform :ios, '8.0'
 pod "MPMoviePlayerController-Subtitles"
 ```
 
-## Requirements
+### Requirements
 
 | Version | Language  | Minimum iOS Target  |
 |:--------------------:|:---------------------------:|:---------------------------:|
@@ -25,7 +25,7 @@ pod "MPMoviePlayerController-Subtitles"
 |          1.x         |            Objective-C            |            iOS 6            |
 
 
-## Usage
+### Usage
 
 
 ```swift
