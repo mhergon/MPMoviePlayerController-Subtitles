@@ -77,3 +77,4 @@ moviePlayer.moviePlayer.play()
 ## License
 
 MPMoviePlayerController-Subtitles is released under the Apache license 2.0. See LICENSE for details.
+
