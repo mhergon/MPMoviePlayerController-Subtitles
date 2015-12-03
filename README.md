@@ -77,4 +77,5 @@ moviePlayer.moviePlayer.play()
 ## License
 
 Licensed under Apache License v2.0.
+&emsp;
 Copyright 2015 Marc Hervera. 
