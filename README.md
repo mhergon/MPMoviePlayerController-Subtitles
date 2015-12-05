@@ -1,5 +1,5 @@
 <p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/logo.png" alt="AFNetworking" title="Logo" width=250>
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/logo.png" alt="AFNetworking" title="Logo" width=250>
 </p>
 
 ![issues](https://img.shields.io/github/issues/mhergon/MPMoviePlayerController-Subtitles.svg)
@@ -63,7 +63,7 @@ moviePlayer.moviePlayer.play()
 
 ## Screenshot
 <p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/Others/screenshot.png" alt="Example" title="AFNetworking">
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/screenshot.png" alt="Example" title="AFNetworking">
 </p>
 
 ## Contact
