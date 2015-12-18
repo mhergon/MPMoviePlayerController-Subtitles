@@ -32,19 +32,18 @@ class ViewController: UIViewController {
         let subtitleURL = NSURL(fileURLWithPath: subtitleFile!)
         
         // Movie player
-        let moviePlayer = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
-        presentMoviePlayerViewControllerAnimated(moviePlayer)
+        let moviePlayerView = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
+        presentMoviePlayerViewControllerAnimated(moviePlayerView)
         
         // Add subtitles
-        moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL)
-        moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
+        moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL)
+        moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
         
         // Change text properties
-        moviePlayer.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
+        moviePlayerView.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
         
         // Play
-        moviePlayer.moviePlayer.play()
-        
+        moviePlayerView.moviePlayer.play()
         
     }
 

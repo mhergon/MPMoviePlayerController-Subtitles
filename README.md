@@ -48,17 +48,18 @@ let subtitleFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType:
 let subtitleURL = NSURL(fileURLWithPath: subtitleFile!)
 
 // Movie player
-let moviePlayer = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
-presentMoviePlayerViewControllerAnimated(moviePlayer)
+let moviePlayerView = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
+presentMoviePlayerViewControllerAnimated(moviePlayerView)
 
 // Add subtitles
-moviePlayer.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
+moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL)
+moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
 
-// Change text properties
-moviePlayer.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
+// Change text properties (optinal)
+moviePlayerView.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
 
 // Play
-moviePlayer.moviePlayer.play()
+moviePlayerView.moviePlayer.play()
 ```
 
 ## Screenshot
@@ -78,4 +79,4 @@ moviePlayer.moviePlayer.play()
 
 Licensed under Apache License v2.0.
 <br>
-Copyright 2015 Marc Hervera. 
+Copyright 2015 Marc Hervera.
