@@ -79,4 +79,4 @@ moviePlayerView.moviePlayer.play()
 
 Licensed under Apache License v2.0.
 <br>
-Copyright 2016 Marc Hervera.
+Copyright 2015-2016 Marc Hervera.
