@@ -1,5 +1,5 @@
 <p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/logo.png" alt="AFNetworking" title="Logo" width=250>
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/logo.png" alt="Logo" title="Logo" width=250>
 </p>
 
 ![issues](https://img.shields.io/github/issues/mhergon/MPMoviePlayerController-Subtitles.svg)
@@ -53,9 +53,9 @@ presentMoviePlayerViewControllerAnimated(moviePlayerView)
 
 // Add subtitles
 moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL)
-moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding)
+moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding) // optional
 
-// Change text properties (optinal)
+// Change text properties (optional)
 moviePlayerView.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
 
 // Play
@@ -64,7 +64,7 @@ moviePlayerView.moviePlayer.play()
 
 ## Screenshot
 <p align="center" >
-<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/screenshot.png" alt="Example" title="AFNetworking">
+<img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/screenshot.png" alt="Screenshoot" title="Screenshoot">
 </p>
 
 ## Contact
@@ -79,4 +79,4 @@ moviePlayerView.moviePlayer.play()
 
 Licensed under Apache License v2.0.
 <br>
-Copyright 2015 Marc Hervera.
+Copyright 2016 Marc Hervera.
