@@ -230,8 +230,12 @@ public extension MPMoviePlayerController {
                 scanner.scanDouble(&c)
                 let toTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0)
                 
-                // Get text
-                let text = (group as NSString).stringByReplacingCharactersInRange(NSMakeRange(0, to.range.location + to.range.length + 1), withString: "")
+                // Get text & check if empty
+                let range = NSMakeRange(0, to.range.location + to.range.length + 1)
+                guard (group as NSString).length - range.length > 0 else {
+                    continue
+                }
+                let text = (group as NSString).stringByReplacingCharactersInRange(range, withString: "")
                 
                 // Create final object
                 let final = NSMutableDictionary()
