@@ -170,12 +170,12 @@ public extension MPMoviePlayerController {
         
     }
     
-    private func parseSubRip(var payload: String) -> NSDictionary? {
+    private func parseSubRip(payload: String) -> NSDictionary? {
         
         do {
             
             // Prepare payload
-            payload = payload.stringByReplacingOccurrencesOfString("\n\r\n", withString: "\n\n")
+            var payload = payload.stringByReplacingOccurrencesOfString("\n\r\n", withString: "\n\n")
             payload = payload.stringByReplacingOccurrencesOfString("\n\n\n", withString: "\n\n")
             
             // Parsed dict
