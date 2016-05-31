@@ -112,6 +112,7 @@ public extension MPMoviePlayerController {
             subtitleLabel?.layer.shadowRadius = 1.0;
             subtitleLabel?.layer.shouldRasterize = true;
             subtitleLabel?.layer.rasterizationScale = UIScreen.mainScreen().scale
+            subtitleLabel?.lineBreakMode = .ByWordWrapping
             subtitleContainer?.addSubview(subtitleLabel!)
             
             // Position
