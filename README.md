@@ -28,7 +28,7 @@ pod "MPMoviePlayerController-Subtitles"
 
 | Version | Language  | Minimum iOS Target  |
 |:--------------------:|:---------------------------:|:---------------------------:|
-|          2.x         |            Swift 3.x            |            iOS 8            |
+|          2.1.x         |            Swift 3.x            |            iOS 8            |
 |          2.0.x         |            Swift 2.x            |            iOS 8            |
 |          1.x         |            Objective-C            |            iOS 6            |
 
