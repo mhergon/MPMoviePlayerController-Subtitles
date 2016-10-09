@@ -28,7 +28,8 @@ pod "MPMoviePlayerController-Subtitles"
 
 | Version | Language  | Minimum iOS Target  |
 |:--------------------:|:---------------------------:|:---------------------------:|
-|          2.x         |            Swift            |            iOS 8            |
+|          2.x         |            Swift 3.x            |            iOS 8            |
+|          2.0.x         |            Swift 2.x            |            iOS 8            |
 |          1.x         |            Objective-C            |            iOS 6            |
 
 
@@ -41,25 +42,25 @@ import MPMoviePlayerControllerSubtitles
 
 ```swift
 // Video file
-let videoFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType: "mov")
+let videoFile = Bundle.main.path(forResource: "trailer_720p", ofType: "mov")
 
 // Subtitle file
-let subtitleFile = NSBundle.mainBundle().pathForResource("trailer_720p", ofType: "srt")
-let subtitleURL = NSURL(fileURLWithPath: subtitleFile!)
+let subtitleFile = Bundle.main.path(forResource: "trailer_720p", ofType: "srt")
+let subtitleURL = URL(fileURLWithPath: subtitleFile!)
 
 // Movie player
-let moviePlayerView = MPMoviePlayerViewController(contentURL: NSURL(fileURLWithPath: videoFile!))
+let moviePlayerView = MPMoviePlayerViewController(contentURL: URL(fileURLWithPath: videoFile!))
 presentMoviePlayerViewControllerAnimated(moviePlayerView)
 
 // Add subtitles
-moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL)
-moviePlayerView.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: NSUTF8StringEncoding) // optional
+moviePlayerView?.moviePlayer.addSubtitles().open(file: subtitleURL)
+moviePlayerView?.moviePlayer.addSubtitles().open(file: subtitleURL, encoding: String.Encoding.utf8)
 
-// Change text properties (optional)
-moviePlayerView.moviePlayer.subtitleLabel?.textColor = UIColor.redColor()
+// Change text properties
+moviePlayerView?.moviePlayer.subtitleLabel?.textColor = UIColor.red
 
 // Play
-moviePlayerView.moviePlayer.play()
+moviePlayerView?.moviePlayer.play()
 ```
 
 ## Screenshot
