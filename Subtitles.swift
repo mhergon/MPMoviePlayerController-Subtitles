@@ -182,7 +182,7 @@ public extension MPMoviePlayerController {
             let parsed = NSMutableDictionary()
             
             // Get groups
-            let regexStr = "(?m)(^[0-9]+)([\\s\\S]*?)(?=\n\n)"
+            let regexStr = "(\\d+)\\n([\\d:,.]+)\\s+-{2}\\>\\s+([\\d:,.]+)\\n([\\s\\S]*?(?=\\n{2,}|$))"
             let regex = try NSRegularExpression(pattern: regexStr, options: .caseInsensitive)
             let matches = regex.matches(in: payload, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, payload.characters.count))
             for m in matches {
@@ -198,7 +198,7 @@ public extension MPMoviePlayerController {
                 let index = (group as NSString).substring(with: i.range)
                 
                 // Get "from" & "to" time
-                regex = try NSRegularExpression(pattern: "\\d{1,2}:\\d{1,2}:\\d{1,2},\\d{1,3}", options: .caseInsensitive)
+                regex = try NSRegularExpression(pattern: "\\d{1,2}:\\d{1,2}:\\d{1,2}[,.]\\d{1,3}", options: .caseInsensitive)
                 match = regex.matches(in: group, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, group.characters.count))
                 guard match.count == 2 else {
                     continue
