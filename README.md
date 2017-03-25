@@ -28,13 +28,12 @@ pod "MPMoviePlayerController-Subtitles"
 
 | Version | Language  | Minimum iOS Target  |
 |:--------------------:|:---------------------------:|:---------------------------:|
-|          2.1.x         |            Swift 3.x            |            iOS 8            |
+|          2.2.x         |            Swift 3.x            |            iOS 8            |
 |          2.0.x         |            Swift 2.x            |            iOS 8            |
 |          1.x         |            Objective-C            |            iOS 6            |
 
 
-### Usage
-
+### Usage with player
 
 ```swift
 import MPMoviePlayerControllerSubtitles
@@ -63,10 +62,26 @@ moviePlayerView?.moviePlayer.subtitleLabel?.textColor = UIColor.red
 moviePlayerView?.moviePlayer.play()
 ```
 
-## Screenshot
+#### Screenshot
 <p align="center" >
 <img src="https://raw.github.com/mhergon/MPMoviePlayerController-Subtitles/master/assets/screenshot.png" alt="Screenshoot" title="Screenshoot">
 </p>
+
+### Usage without player
+
+From version 2.2 you can search text in the SubRip file or text without need play any file.
+
+```swift
+// Subtitle file
+let subtitleFile = Bundle.main.path(forResource: "trailer_720p", ofType: "srt")
+let subtitleURL = URL(fileURLWithPath: subtitleFile!)
+
+// Subtitle parser
+let parser = Subtitles(file: subtitleURL, encoding: .utf8)
+
+// Do something with result
+let subtitles = parser.searchSubtitles(at: 2.0) // Search subtitle at 2.0 seconds
+```
 
 ## Contact
 
@@ -80,4 +95,4 @@ moviePlayerView?.moviePlayer.play()
 
 Licensed under Apache License v2.0.
 <br>
-Copyright 2015-2016 Marc Hervera.
+Copyright 2017 Marc Hervera.
