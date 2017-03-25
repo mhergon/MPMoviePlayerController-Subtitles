@@ -72,6 +72,10 @@ moviePlayerView?.moviePlayer.play()
 From version 2.2 you can search text in the SubRip file or text without need play any file.
 
 ```swift
+import MPMoviePlayerControllerSubtitles
+```
+
+```swift
 // Subtitle file
 let subtitleFile = Bundle.main.path(forResource: "trailer_720p", ofType: "srt")
 let subtitleURL = URL(fileURLWithPath: subtitleFile!)
